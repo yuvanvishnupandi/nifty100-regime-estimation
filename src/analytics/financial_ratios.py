@@ -26,14 +26,13 @@ os.makedirs("output", exist_ok=True)
 # ======================================
 # Database Connection
 # ======================================
-conn = sqlite3.connect("database/nifty100.db")
+conn = sqlite3.connect("data/nifty100.db")
 
 # ======================================
 # Load Profit & Loss
 # ======================================
 pl = pd.read_sql("SELECT * FROM profitandloss", conn)
-pl.columns = pl.iloc[0]
-pl = pl.iloc[1:].reset_index(drop=True)
+# Column headers already loaded from SQL
 
 numeric_cols = [
     "sales", "operating_profit", "other_income", 
@@ -48,8 +47,7 @@ print("Profit & Loss Loaded")
 # Load Balance Sheet
 # ======================================
 bs = pd.read_sql("SELECT * FROM balancesheet", conn)
-bs.columns = bs.iloc[0]
-bs = bs.iloc[1:].reset_index(drop=True)
+# SQL columns used directly
 bs = bs.drop_duplicates(subset=["company_id", "year"])
 
 bs_numeric = ["equity_capital", "reserves", "borrowings", "total_assets"]
@@ -82,8 +80,7 @@ print("Rows after BS Merge :", len(merged_df))
 # Load Cash Flow
 # ======================================
 cf = pd.read_sql("SELECT * FROM cashflow", conn)
-cf.columns = cf.iloc[0]
-cf = cf.iloc[1:].reset_index(drop=True)
+# SQL columns used directly
 cf = cf.drop_duplicates(subset=["company_id", "year"])
 
 cf_numeric = ["operating_activity", "investing_activity", "financing_activity", "net_cash_flow"]

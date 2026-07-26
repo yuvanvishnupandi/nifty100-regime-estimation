@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 class NiftyScreenerEngine:
-    def __init__(self, db_path="database/nifty100.db"):
+    def __init__(self, db_path="data/nifty100.db"):
         self.db_path = db_path
         self.df = self._load_data_layer()
         # Compute dynamic scores immediately upon loading data layer for downstream screening

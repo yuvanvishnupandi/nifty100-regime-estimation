@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 class PeerAnalyticsEngine:
-    def __init__(self, db_path="database/nifty100.db", excel_path="database/peer_groups.xlsx"):
+    def __init__(self, db_path="data/nifty100.db", excel_path="database/peer_groups.xlsx"):
         self.db_path = db_path
         self.excel_path = excel_path
         self.conn = sqlite3.connect(self.db_path)
@@ -148,3 +148,13 @@ if __name__ == "__main__":
         print(rank_df.head(5).to_string(index=False))
         
     engine.close()
+
+# Auto-export peer comparison Excel report
+import os
+os.makedirs("output", exist_ok=True)
+if hasattr(engine, 'df_peers') and engine.df_peers is not None:
+    with pd.ExcelWriter("output/peer_comparison.xlsx") as writer:
+        for group_name, group_df in engine.df_peers.groupby('peer_group_name'):
+            sheet_name = str(group_name)[:31] # Excel sheet name limit
+            group_df.to_excel(writer, sheet_name=sheet_name, index=False)
+    print("📊 Peer Rankings Excel saved to 'output/peer_comparison.xlsx'")

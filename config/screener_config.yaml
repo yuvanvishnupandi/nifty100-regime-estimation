@@ -1,0 +1,8 @@
+﻿screener:
+  min_roe: 12.0
+  max_debt_to_equity: 1.5
+  min_sales_cagr_3yr: 5.0
+weights:
+  profitability: 0.4
+  growth: 0.3
+  leverage: 0.3
