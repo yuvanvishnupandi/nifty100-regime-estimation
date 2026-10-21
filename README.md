@@ -1,4 +1,4 @@
-## nifty100-financial-intelligence-platform
+## nifty100-regime-estimation
 
 An end-to-end financial intelligence platform for Nifty 100 equity research, financial ratio engine, multi-factor screening, cash flow analytics, KMeans archetype clustering, and automated tearsheet reporting.
 
