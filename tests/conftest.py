@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pytest
 from fastapi.testclient import TestClient
 from src.api.main import app
